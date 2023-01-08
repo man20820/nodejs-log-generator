@@ -72,3 +72,9 @@ setiap 3 detik, ini adalah pesan test pada Mon Jan 09 2023 04:06:24 GMT+0700 (We
 setiap 3 detik, ini adalah pesan test pada Mon Jan 09 2023 04:06:27 GMT+0700 (Western Indonesia Time)
 setiap 3 detik, ini adalah pesan test pada Mon Jan 09 2023 04:06:30 GMT+0700 (Western Indonesia Time)
 ```
+
+## Screenshot
+
+![curl](/screenshot/curl.png?raw=true "curl")
+
+![console-log](/screenshot/console-log.png?raw=true "console-log")
