@@ -6,37 +6,41 @@ var cron = require('node-cron');
 
 app.use(cors());
 
-const port = process.env.PORT || $PORT;
+const port = process.env.PORT || "3000";
 
 app.route("/").get((req, res) => {
   res.send("info man@tkjpedia.com");
 });
 
-let task = null
+let log = null
+let error = null
 
 app.route("/log/:message/:frequency").get((req, res) => {
   let message = req.params.message
   let frequency = req.params.frequency
-  if (task !== null) {
-    task.stop()
+  if (log !== null) {
+    log.stop()
   }
-  task = cron.schedule(`*/${ frequency } * * * * *`, () => {
-    console.log(`setiap ${ frequency } detik, ini adalah pesan ${ message } ${ new Date() }`);
+  log = cron.schedule(`*/${ frequency } * * * * *`, () => {
+    console.log(`setiap ${ frequency } detik, ini adalah pesan ${ message } pada ${ new Date() }`);
   }, {
     scheduled: true
   });
-  res.send(`membuat cron ${ message } setiap ${ frequency } detik sekali`); 
-  console.log(task)
+  res.send(`membuat log ${ message } setiap ${ frequency } detik sekali`); 
 });
 
-
-
-// cron.schedule('*/3 * * * * *', () => {
-//   console.log('ini adalah pesan log kedua');
-// });
-
-// cron.schedule('*/5 * * * * *', () => {
-//   console.error('ini adalah pesan error');
-// });
+app.route("/error/:message/:frequency").get((req, res) => {
+  let message = req.params.message
+  let frequency = req.params.frequency
+  if (error !== null) {
+    error.stop()
+  }
+  error = cron.schedule(`*/${ frequency } * * * * *`, () => {
+    console.error(`setiap ${ frequency } detik, ini adalah error ${ message } pada ${ new Date() }`);
+  }, {
+    scheduled: true
+  });
+  res.send(`membuat error ${ message } setiap ${ frequency } detik sekali`); 
+});
 
 app.listen(port);
